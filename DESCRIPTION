@@ -1,0 +1,18 @@
+Package: sitreper
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Andree",
+           family = "Valle-Campos",
+           role = c("aut", "cre"),
+           email = "avallecam@gmail.com",
+           comment = c(ORCID = "0000-0002-7779-481X"))
+Description: What the package does (one paragraph).
+License: GPL-3
+Imports: tidyverse, dplyr, tidyr, magrittr, aweek, lubridate, rlang
+Suggests: 
+    testthat
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
