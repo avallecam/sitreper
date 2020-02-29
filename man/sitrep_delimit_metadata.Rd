@@ -5,6 +5,9 @@
 \alias{sitrep_delimit_spacetime_eval}
 \alias{sitrep_delimit_spacetime_make}
 \alias{sitrep_delimit_spacetime_eval_free}
+\alias{sitrep_delimit_spacetime_count}
+\alias{sitrep_delimit_spacetime_filter}
+\alias{sitrep_delimit_spacetime_count_free}
 \title{Delimit in space and time}
 \usage{
 sitrep_delimit_metadata(data_raw_name_string, week_ini = "2020-W01",
@@ -17,6 +20,15 @@ sitrep_delimit_spacetime_make(data, week_ini = "2020-W01",
   week_fin = "today", space_var, space_num = 4)
 
 sitrep_delimit_spacetime_eval_free(data, ..., week_ini = "2020-W01",
+  week_fin = "today", space_num = 4)
+
+sitrep_delimit_spacetime_count(data, week_ini = "2020-W01",
+  week_fin = "today", space_var, space_num = 4)
+
+sitrep_delimit_spacetime_filter(data, week_ini = "2020-W01",
+  week_fin = "today", space_var, space_num = 4)
+
+sitrep_delimit_spacetime_count_free(data, ..., week_ini = "2020-W01",
   week_fin = "today", space_num = 4)
 }
 \arguments{
@@ -37,6 +49,14 @@ sitrep_delimit_spacetime_eval_free(data, ..., week_ini = "2020-W01",
 \item{data}{outcome}
 
 \item{data}{outcome}
+
+\item{data}{outcome}
+
+\item{data}{outcome}
+
+\item{data}{outcome}
+
+\item{...}{more spatial covariates}
 }
 \value{
 retorno
@@ -48,11 +68,17 @@ Create
 \itemize{
 \item \code{sitrep_delimit_metadata}: 
 
-\item \code{sitrep_delimit_spacetime_eval}: create 2
+\item \code{sitrep_delimit_spacetime_eval}: create 2 (deprecated) -> now is ..._count
 
-\item \code{sitrep_delimit_spacetime_make}: create 3
+\item \code{sitrep_delimit_spacetime_make}: create 3  (deprecated) -> now is ..._filter
 
-\item \code{sitrep_delimit_spacetime_eval_free}: create 2 free
+\item \code{sitrep_delimit_spacetime_eval_free}: create 2 free (deprecated) -> now is ..._count_free
+
+\item \code{sitrep_delimit_spacetime_count}: create 2
+
+\item \code{sitrep_delimit_spacetime_filter}: create 3
+
+\item \code{sitrep_delimit_spacetime_count_free}: create 2 free
 }}
 
 \examples{
