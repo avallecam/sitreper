@@ -4,6 +4,7 @@
 \alias{sitrep_delimit_metadata}
 \alias{sitrep_delimit_spacetime_eval}
 \alias{sitrep_delimit_spacetime_make}
+\alias{sitrep_delimit_spacetime_eval_free}
 \title{Delimit in space and time}
 \usage{
 sitrep_delimit_metadata(data_raw_name_string, week_ini = "2020-W01",
@@ -14,6 +15,9 @@ sitrep_delimit_spacetime_eval(data, week_ini = "2020-W01",
 
 sitrep_delimit_spacetime_make(data, week_ini = "2020-W01",
   week_fin = "today", space_var, space_num = 4)
+
+sitrep_delimit_spacetime_eval_free(data, week_ini = "2020-W01",
+  week_fin = "today", space_num = 4, ...)
 }
 \arguments{
 \item{data_raw_name_string}{filename as string "data-raw/ficha_GB_26Feb20_09_52.xls"}
@@ -27,6 +31,10 @@ sitrep_delimit_spacetime_make(data, week_ini = "2020-W01",
 \item{data}{outcome}
 
 \item{space_var}{define the administrative unit variable}
+
+\item{...}{more spatial covariates}
+
+\item{data}{outcome}
 
 \item{data}{outcome}
 }
@@ -43,6 +51,8 @@ Create
 \item \code{sitrep_delimit_spacetime_eval}: create 2
 
 \item \code{sitrep_delimit_spacetime_make}: create 3
+
+\item \code{sitrep_delimit_spacetime_eval_free}: create 2 free
 }}
 
 \examples{

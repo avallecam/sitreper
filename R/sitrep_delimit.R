@@ -21,6 +21,7 @@
 #' @export sitrep_delimit_metadata
 #' @export sitrep_delimit_spacetime_eval
 #' @export sitrep_delimit_spacetime_make
+#' @export sitrep_delimit_spacetime_eval_free
 #'
 #' @examples
 #'
@@ -71,22 +72,6 @@ sitrep_delimit_spacetime_eval <- function(data,week_ini="2020-W01",week_fin="tod
     week_fin <- today() %>% date2week(floor_day = TRUE)
   }
 
-  #tiempo: desde una determinada semana a la actualidad
-  #week_ini <- "2019-W41"
-  #week_ini <- "2020-W01"
-  #week_ini <- "2019-W01"
-  #week_ini <- "2019-W21"
-  # week_fin <- if_else(condition = week_fin=="today",
-  #                     true = (today() %>% date2week(floor_day = TRUE)),
-  #                     false = week_fin)
-  #week_fin <- today() %>% date2week(floor_day = TRUE)
-  #week_fin <- "2019-W52"
-  #week_fin <- "2019-W30"
-  #time_range <- 41:52 #eliminar
-
-  #espacio
-  #space_num <- 4 #how many departments would you like to see?
-
   #generar rango de semanas
   week_range <- tibble(date_range=seq(from = week2date(week_ini),
                                       to = week2date(week_fin),
@@ -107,15 +92,6 @@ sitrep_delimit_spacetime_eval <- function(data,week_ini="2020-W01",week_fin="tod
     top_n(space_num,n)
   dptos
 
-  #completo
-  # sgbdata_raw_cleaned_timespace <- sgbdata_raw_cleaned %>%
-  #   #tiempo para priorizar espacio
-  #   filter(is_in(epiweek_w,week_range)) %>%
-  #   #filter((is_in(epiweek,time_range) & ano_adm_hos == 2019) | ano_adm_hos == 2020) %>%
-  #   #espacio
-  #   filter(is_in({{space_var}},c(dptos %>% pull({{space_var}}))))
-  #
-  # sgbdata_raw_cleaned_timespace
 }
 
 #' @describeIn sitrep_delimit_metadata create 3
@@ -131,22 +107,6 @@ sitrep_delimit_spacetime_make <- function(data,week_ini="2020-W01",week_fin="tod
   } else{
     week_fin <- today() %>% date2week(floor_day = TRUE)
   }
-
-  #tiempo: desde una determinada semana a la actualidad
-  #week_ini <- "2019-W41"
-  #week_ini <- "2020-W01"
-  #week_ini <- "2019-W01"
-  #week_ini <- "2019-W21"
-  # week_fin <- if_else(condition = week_fin=="today",
-  #                     true = (today() %>% date2week(floor_day = TRUE)),
-  #                     false = week_fin)
-  #week_fin <- today() %>% date2week(floor_day = TRUE)
-  #week_fin <- "2019-W52"
-  #week_fin <- "2019-W30"
-  #time_range <- 41:52 #eliminar
-
-  #espacio
-  #space_num <- 4 #how many departments would you like to see?
 
   #generar rango de semanas
   week_range <- tibble(date_range=seq(from = week2date(week_ini),
@@ -177,4 +137,42 @@ sitrep_delimit_spacetime_make <- function(data,week_ini="2020-W01",week_fin="tod
     filter(is_in({{space_var}},c(dptos %>% pull({{space_var}}))))
 
   sgbdata_raw_cleaned_timespace
+}
+
+#' @describeIn sitrep_delimit_metadata create 2 free
+#' @inheritParams sitrep_delimit_metadata
+#' @param data outcome
+#' @param ... more spatial covariates
+
+sitrep_delimit_spacetime_eval_free <- function(data,week_ini="2020-W01",week_fin="today",space_num=4,...) {
+
+  sgbdata_raw_cleaned <- data
+  space_var_more <- enquos(...)
+
+  if (week_fin!="today") {
+    week_fin <- week_fin
+  } else{
+    week_fin <- today() %>% date2week(floor_day = TRUE)
+  }
+
+  #generar rango de semanas
+  week_range <- tibble(date_range=seq(from = week2date(week_ini),
+                                      to = week2date(week_fin),
+                                      by = '1 day')) %>%
+    mutate(epiweek_w=date2week(date_range,
+                               week_start = "Sunday",
+                               floor_day = TRUE)) %>%
+    count(epiweek_w) %>%
+    pull(epiweek_w)
+
+  #espacio
+  #lima,cajamarca,lambayeque,lalibertad,piura,junin+amazonas (sin huancavelica)
+  dptos <- sgbdata_raw_cleaned %>%
+    #tiempo para priorizar espacio
+    filter(is_in(epiweek_w,week_range)) %>%
+    #filter((is_in(epiweek,time_range) & ano_adm_hos == 2019) | ano_adm_hos == 2020) %>%
+    count(!!!space_var_more,sort = T) %>%
+    top_n(space_num,n)
+  dptos
+
 }
