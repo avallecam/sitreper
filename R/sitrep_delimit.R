@@ -144,7 +144,7 @@ sitrep_delimit_spacetime_make <- function(data,week_ini="2020-W01",week_fin="tod
 #' @param data outcome
 #' @param ... more spatial covariates
 
-sitrep_delimit_spacetime_eval_free <- function(data,week_ini="2020-W01",week_fin="today",space_num=4,...) {
+sitrep_delimit_spacetime_eval_free <- function(data,...,week_ini="2020-W01",week_fin="today",space_num=4) {
 
   sgbdata_raw_cleaned <- data
   space_var_more <- enquos(...)
@@ -171,7 +171,8 @@ sitrep_delimit_spacetime_eval_free <- function(data,week_ini="2020-W01",week_fin
     #tiempo para priorizar espacio
     filter(is_in(epiweek_w,week_range)) %>%
     #filter((is_in(epiweek,time_range) & ano_adm_hos == 2019) | ano_adm_hos == 2020) %>%
-    count(!!!space_var_more,sort = T) %>%
+    count(!!!space_var_more) %>%
+    arrange(desc(n)) %>%
     top_n(space_num,n)
   dptos
 
