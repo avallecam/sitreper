@@ -11,15 +11,30 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/sitreper)](https://cran.r-project.org/package=sitreper)
 <!-- badges: end -->
 
-The goal of sitreper is to …
+The goal of `sitreper` is to provide a multiple set of functions for the
+generation of situational reports:
+
+  - space-time tibble delimiters based on epidemiological weeks
+  - geocode places within a tibble
+  - surveillance specific cleaning tools
 
 ## Installation
 
-You can install the released version of sitreper from
-[CRAN](https://CRAN.R-project.org) with:
+<!--
+
+You can install the released version of `sitreper` from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("sitreper")
+```
+
+-->
+
+You can install the development version of `sitreper` using:
+
+``` r
+if(!require("devtools")) install.packages("devtools")
+devtools::install_gitlab("investigacion/sitreper")
 ```
 
 ## Example
@@ -27,38 +42,29 @@ install.packages("sitreper")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
+library(opencage)
+library(tidyverse)
 library(sitreper)
-#> Warning: replacing previous import 'dplyr::intersect' by
-#> 'lubridate::intersect' when loading 'sitreper'
-#> Warning: replacing previous import 'dplyr::union' by 'lubridate::union'
-#> when loading 'sitreper'
-#> Warning: replacing previous import 'dplyr::setdiff' by 'lubridate::setdiff'
-#> when loading 'sitreper'
-#> Warning: replacing previous import 'magrittr::set_names' by
-#> 'rlang::set_names' when loading 'sitreper'
-## basic example code
+
+opencagekey <- "paste_free_geocode_key_here"
+
+# examples ----------------------------------------------------------------
+
+place_01 <- "Calle Daniel Olaechea 199, LIMA PERU"
+place_02 <- "Ministerio de Salud Lima Peru"
+place_03 <- "Av. Salaverry 801, Jesus Maria 15072"
+place_10 <- "Sarzeau"
+
+data_query <- tibble(place=c(place_01,place_02,place_03,place_10))
+
+data_query %>%
+  sitrep_opencage_tidy_map(place = place,opencagekey = opencagekey)
+#> # A tibble: 3 x 8
+#>   place geocode geometry.lat geometry.lng confidence components.post~
+#>   <chr> <list>         <dbl>        <dbl> <fct>      <fct>
+#> 1 Call~ <tibbl~        -12.1        -77.0 9          15072
+#> 2 Mini~ <tibbl~        -12.1        -77.0 10         LIMA 15046
+#> 3 Av. ~ <tibbl~        -12.1        -77.0 10         LIMA 15046
+#> # ... with 2 more variables: components._category <fct>,
+#> #   annotations.OSM.url <fct>
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
