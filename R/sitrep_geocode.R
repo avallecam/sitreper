@@ -114,7 +114,7 @@ sitrep_opencage_tidy_map <- function(data,place,opencagekey) {
                               .f = ~select(.x,
                                            starts_with("geometry"),
                                            confidence,
-                                           components.postcode,
+                                           #components.postcode,
                                            #components.state_code,components.suburb,
                                            components._category,
                                            annotations.OSM.url))) %>%
