@@ -1,8 +1,8 @@
 #' @title Delimit in space and time
 #'
-#' @description Create
+#' @description Create metadata and filter by time and space
 #'
-#' @describeIn sitrep_delimit_metadata
+#' @describeIn sitrep_delimit_metadata cool to create metadata!
 #'
 #' @param data_raw_name_string filename as string "data-raw/ficha_GB_26Feb20_09_52.xls"
 #' @param week_ini week ini

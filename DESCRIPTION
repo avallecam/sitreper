@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-7779-481X"))
 Description: What the package does (one paragraph).
 License: GPL-3
-Imports: tidyverse, dplyr, tidyr, magrittr, aweek, lubridate, rlang
+Imports: tidyverse, dplyr, tidyr, magrittr, aweek, lubridate, rlang, opencage
 Suggests: 
     testthat
 Encoding: UTF-8

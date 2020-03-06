@@ -62,11 +62,11 @@ sitrep_delimit_spacetime_count_free(data, ..., week_ini = "2020-W01",
 retorno
 }
 \description{
-Create
+Create metadata and filter by time and space
 }
 \section{Functions}{
 \itemize{
-\item \code{sitrep_delimit_metadata}: 
+\item \code{sitrep_delimit_metadata}: cool to create metadata!
 
 \item \code{sitrep_delimit_spacetime_eval}: create 2 (deprecated) -> now is ..._count
 
