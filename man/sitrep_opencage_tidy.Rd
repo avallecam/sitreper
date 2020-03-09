@@ -3,11 +3,14 @@
 \name{sitrep_opencage_tidy}
 \alias{sitrep_opencage_tidy}
 \alias{sitrep_opencage_tidy_map}
+\alias{sitrep_opencage_create}
 \title{apply a tidy geocoding with fixed parameters}
 \usage{
 sitrep_opencage_tidy(place, opencagekey)
 
 sitrep_opencage_tidy_map(data, place, opencagekey)
+
+sitrep_opencage_create(data, address, administrative_level)
 }
 \arguments{
 \item{place}{string with place name}
@@ -15,6 +18,12 @@ sitrep_opencage_tidy_map(data, place, opencagekey)
 \item{opencagekey}{opencage key}
 
 \item{data}{tibble with column of places}
+
+\item{address}{address to geocode}
+
+\item{administrative_level}{adminsitrative level to add to the string}
+
+\item{data}{tibble with column of places and an administrative level}
 }
 \value{
 columns with geolocation coordinates
@@ -27,6 +36,8 @@ geocode a vector inside a tibble using opencage
 \item \code{sitrep_opencage_tidy}: tidy opencage output for only one string
 
 \item \code{sitrep_opencage_tidy_map}: tidy opencage output for only a tibble
+
+\item \code{sitrep_opencage_create}: creates clean column previous to start geocoding
 }}
 
 \examples{

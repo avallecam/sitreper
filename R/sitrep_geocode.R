@@ -14,6 +14,7 @@
 #'
 #' @export sitrep_opencage_tidy
 #' @export sitrep_opencage_tidy_map
+#' @export sitrep_opencage_create
 #'
 #' @examples
 #'
@@ -127,4 +128,34 @@ sitrep_opencage_tidy_map <- function(data,place,opencagekey) {
                               )
            ) %>%
     unnest(cols = c(geocode_select))
+}
+
+#' @describeIn sitrep_opencage_tidy creates clean column previous to start geocoding
+#' @inheritParams sitrep_opencage_tidy
+#' @param data tibble with column of places and an administrative level
+#' @param address address to geocode
+#' @param administrative_level adminsitrative level to add to the string
+
+sitrep_opencage_create <- function(data,address,administrative_level) {
+  data %>%
+    mutate_at(.vars = vars({{administrative_level}}#,
+                           #prov_residencia,dist_residencia
+    ),
+    .funs = ~if_else(is.na(.x),".",.x)) %>%
+    mutate(to_geocode=str_c({{address}}," ",
+                            {{administrative_level}}," "#,
+                            # prov_residencia," ",
+                            # dist_residencia," ",
+                            #"PERU"
+    ),
+    to_geocode=str_replace_all(to_geocode," "," "),
+    to_geocode=str_replace_all(to_geocode,"-"," "),
+    to_geocode=str_replace_all(to_geocode,"\\/"," "),
+    to_geocode=str_replace_all(to_geocode,"\\."," "),
+    to_geocode=str_replace_all(to_geocode,"\\+"," "),
+    to_geocode=str_replace_all(to_geocode,"\\,"," "),
+    to_geocode=str_replace_all(to_geocode,"\\°"," "),
+    to_geocode=str_replace_all(to_geocode,"\\s\\s"," "),
+    to_geocode=str_trim(to_geocode),
+    )
 }
