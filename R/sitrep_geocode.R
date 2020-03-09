@@ -104,6 +104,9 @@ sitrep_opencage_tidy_map <- function(data,place,opencagekey) {
   data %>%
     #filter out if tibble have no place
     filter(!is.na({{place}})) %>%
+    #filter out string lenght below 70
+    filter(str_length({{place}})>70) %>%
+    #apply purrr map to each row
     mutate(geocode=map(.x = {{place}},
                        .f = sitrep_opencage_tidy,
                        opencagekey = opencagekey)) %>%
