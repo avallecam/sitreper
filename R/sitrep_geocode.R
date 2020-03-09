@@ -116,11 +116,15 @@ sitrep_opencage_tidy_map <- function(data,place,opencagekey) {
     mutate(geocode_select=map(.x = geocode,
                               .f = ~select(.x,
                                            starts_with("geometry"),
-                                           confidence,components.state,
+                                           confidence,#components.state,
                                            #components.postcode,
                                            #components.state_code,components.suburb,
                                            components._category,
                                            formatted,
-                                           annotations.OSM.url))) %>%
+                                           annotations.OSM.url,
+                                           everything()
+                                           )
+                              )
+           ) %>%
     unnest(cols = c(geocode_select))
 }
