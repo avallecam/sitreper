@@ -7,6 +7,7 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
@@ -24,6 +25,7 @@ The goal of `sitreper` is to provide a multiple set of functions for the generat
 - space-time tibble delimiters based on epidemiological weeks
 - geocode places within a tibble
 - surveillance specific cleaning tools
+- visually sumarized who-sitrep-covid19
 
 ## Installation
 
@@ -41,13 +43,15 @@ You can install the development version of `sitreper` using:
 
 ``` r
 if(!require("devtools")) install.packages("devtools")
-devtools::install_gitlab("investigacion/sitreper")
+devtools::install_github("cdcperu/sitreper")
 ```
 
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
+
+### geocode
 
 ```r
 library(opencage)
@@ -77,3 +81,18 @@ data_query %>%
 #> #   annotations.OSM.url <fct>
 
 ```
+
+### who sitrep covid-19
+
+```{r,fig.height=7.5,fig.width=9}
+library(sitreper)
+
+#paste
+path_file <- "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv"
+
+#apply
+who_sitrep_country_report(
+  data_input = path_file,
+  country = "Brazil")
+```
+
