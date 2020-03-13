@@ -33,7 +33,7 @@ sgb_replicate_filter <- function(data,output_rute) {
 
 #' @describeIn sgb_replicate_filter remove replicates
 #' @inheritParams sgb_replicate_filter
-#' @param input_rute input of reviewed rpelicate output with column "eliminar_casos"
+#' @param input_rute input of reviewed replicate output with column "eliminar_casos"
 
 sgb_replicate_remove <- function(data,input_rute) {
 

@@ -85,7 +85,7 @@ install.packages("sitreper")
 -->
 <p>You can install the development version of <code>sitreper</code> using:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="cf">if</span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"cdcperu/sitreper"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"______/sitreper"</span>)</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -119,31 +119,6 @@ install.packages("sitreper")
 <a class="sourceLine" id="cb2-23" title="23"><span class="co">#&gt; 3 Av. ~ &lt;tibbl~        -12.1        -77.0 10         LIMA 15046</span></a>
 <a class="sourceLine" id="cb2-24" title="24"><span class="co">#&gt; # ... with 2 more variables: components._category &lt;fct&gt;,</span></a>
 <a class="sourceLine" id="cb2-25" title="25"><span class="co">#&gt; #   annotations.OSM.url &lt;fct&gt;</span></a></code></pre></div>
-</div>
-<div id="who-sitrep-covid-19" class="section level3">
-<h3 class="hasAnchor">
-<a href="#who-sitrep-covid-19" class="anchor"></a>who sitrep covid-19</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sitreper)</a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#paste</span></a>
-<a class="sourceLine" id="cb3-4" title="4">path_file &lt;-<span class="st"> "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv"</span></a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#apply</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="reference/who_sitrep_import.html">who_sitrep_country_report</a></span>(</a>
-<a class="sourceLine" id="cb3-8" title="8">  <span class="dt">data_input =</span> path_file,</a>
-<a class="sourceLine" id="cb3-9" title="9">  <span class="dt">country =</span> <span class="st">"Brazil"</span>)</a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; cols(</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;   date = col_date(format = ""),</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt;   country = col_character(),</span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt;   adm = col_character(),</span></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt;   n_cum_conf = col_double(),</span></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt;   n_cum_deaths = col_double(),</span></a>
-<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt;   n_inc_conf = col_double(),</span></a>
-<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt;   n_inc_deaths = col_double(),</span></a>
-<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt;   class = col_character()</span></a>
-<a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt; )</span></a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
 </div>
 </div>
 </div>

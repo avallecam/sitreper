@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>sgb surveillance specific functions — sgb_replicate_filter • sitreper</title>
+<title>Limpiar bases de EDA e IRA — basal_ira_sp • sitreper</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="sgb surveillance specific functions — sgb_replicate_filter" />
+<meta property="og:title" content="Limpiar bases de EDA e IRA — basal_ira_sp" />
 
-<meta property="og:description" content="clean sgb surveillance dataset" />
+<meta property="og:description" content="Funciones para limpiar bases de EDA e IRA." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,53 +98,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>sgb surveillance specific functions</h1>
+    <h1>Limpiar bases de EDA e IRA</h1>
     
-    <div class="hidden name"><code>sgb_replicate_filter.Rd</code></div>
+    <div class="hidden name"><code>basal_ira_sp.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>clean sgb surveillance dataset</p>
+    <p>Funciones para limpiar bases de EDA e IRA.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sgb_replicate_filter</span>(<span class='no'>data</span>, <span class='no'>output_rute</span>)
+    <pre class="usage"><span class='fu'>basal_ira_sp</span>(<span class='no'>rute_ira</span>, <span class='kw'>year_range</span> <span class='kw'>=</span> <span class='fl'>2013</span>:<span class='fl'>2019</span>, <span class='kw'>diagnosis</span> <span class='kw'>=</span> <span class='st'>"ira"</span>)
 
-<span class='fu'>sgb_replicate_remove</span>(<span class='no'>data</span>, <span class='no'>input_rute</span>)</pre>
+<span class='fu'>basal_eda_sp</span>(<span class='no'>rute_eda</span>, <span class='kw'>year_range</span> <span class='kw'>=</span> <span class='fl'>2013</span>:<span class='fl'>2019</span>, <span class='kw'>diagnosis</span> <span class='kw'>=</span> <span class='st'>"eda"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>raw data input file</p></td>
+      <th>rute_ira</th>
+      <td><p>ruta a la carpeta con todas las bases de datos crudas de IRA</p></td>
     </tr>
     <tr>
-      <th>output_rute</th>
-      <td><p>output rute name</p></td>
+      <th>year_range</th>
+      <td><p>rango de años a usar como basal</p></td>
     </tr>
     <tr>
-      <th>input_rute</th>
-      <td><p>input of reviewed replicate output with column "eliminar_casos"</p></td>
+      <th>diagnosis</th>
+      <td><p>elegir el diagnostico a evaluar. para IRA: ira, neu, ngr, hos, dih, deh, sob. para EDA: eda, col, dis, cop.</p></td>
+    </tr>
+    <tr>
+      <th>rute_eda</th>
+      <td><p>ruta a la carpeta con todas las bases de datos crudas de EDA</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>replicates identification and removal functions</p>
+    <p>Bases limpiar de EDA e IRA.</p>
     
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
-<li><p><code>sgb_replicate_filter</code>: filter replicates and store them in excel file</p></li>
-<li><p><code>sgb_replicate_remove</code>: remove replicates</p></li>
+<li><p><code>basal_ira_sp</code>: limpiar base IRA</p></li>
+<li><p><code>basal_eda_sp</code>: remove replicates</p></li>
 </ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+# to run this examples
+# change rute_eda or rute_ira accordingly
+#
+# library(sitreper)
+# library(tidyverse)
+#
+# #ira
+# diagnosis <- "neu" #ira, neu, ngr, hos, dih, deh, sob
+# ira_ira <- basal_ira_sp(rute_ira = "data_raw/ira",
+#                         year_range = 2018:2019,
+#                         diagnosis = diagnosis)
+# ira_ira %>% count(ano)
+# ira_ira %>% count(semana)
+#
+# #eda
+# diagnosis <- "daa" #col, dis, cop
+# eda_eda <- basal_eda_sp(rute_eda = "data_raw/eda",
+#                         year_range = 2018:2019,
+#                         diagnosis = diagnosis)
+# eda_eda %>% count(type,ano)
+# eda_eda %>% count(semana)
 
 </div></pre>
   </div>

@@ -14,7 +14,7 @@ sgb_replicate_remove(data, input_rute)
 
 \item{output_rute}{output rute name}
 
-\item{input_rute}{input of reviewed rpelicate output with column "eliminar_casos"}
+\item{input_rute}{input of reviewed replicate output with column "eliminar_casos"}
 }
 \value{
 replicates identification and removal functions

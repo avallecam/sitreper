@@ -43,7 +43,7 @@ You can install the development version of `sitreper` using:
 
 ``` r
 if(!require("devtools")) install.packages("devtools")
-devtools::install_github("cdcperu/sitreper")
+devtools::install_github("______/sitreper")
 ```
 
 
@@ -82,17 +82,4 @@ data_query %>%
 
 ```
 
-### who sitrep covid-19
-
-```{r,fig.height=7.5,fig.width=9}
-library(sitreper)
-
-#paste
-path_file <- "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv"
-
-#apply
-who_sitrep_country_report(
-  data_input = path_file,
-  country = "Brazil")
-```
 
