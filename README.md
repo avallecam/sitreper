@@ -17,7 +17,6 @@ generation of situational reports:
   - space-time tibble delimiters based on epidemiological weeks
   - geocode places within a tibble
   - surveillance specific cleaning tools
-  - visually sumarized who-sitrep-covid19
 
 ## Installation
 

@@ -25,7 +25,6 @@ The goal of `sitreper` is to provide a multiple set of functions for the generat
 - space-time tibble delimiters based on epidemiological weeks
 - geocode places within a tibble
 - surveillance specific cleaning tools
-- visually sumarized who-sitrep-covid19
 
 ## Installation
 
