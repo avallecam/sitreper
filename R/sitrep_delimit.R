@@ -9,6 +9,7 @@
 #' @param week_fin week fin
 #' @param space_var define the administrative unit variable
 #' @param space_num number of administrative units
+#' @param data outcome
 #'
 #' @import dplyr
 #' @import aweek
@@ -27,6 +28,45 @@
 #' @export sitrep_delimit_spacetime_count_free
 #'
 #' @examples
+#'
+#' library(outbreaks)
+#' library(tidyverse)
+#' library(aweek)
+#' library(sitreper)
+#' #data(package="outbreaks")
+#'
+#' mers_korea_2015 %>% summary()
+#'
+#' mers_korea_2015_linelist <- mers_korea_2015 %>%
+#'   pluck("linelist") %>%
+#'   as_tibble() %>%
+#'
+#'   # formats for sitreper
+#'   mutate(
+#'     epiweek=date2week(dt_onset, week_start = "Sunday", floor_day = TRUE),
+#'     epiweek_fct=as.factor(epiweek),
+#'     loc_hosp_chr=as.character(loc_hosp)
+#'   )
+#'
+#' mers_korea_2015_linelist %>% nrow()
+#' mers_korea_2015_linelist %>% count(epiweek)
+#' mers_korea_2015_linelist %>% count(loc_hosp,sort = T)
+#'
+#' mers_korea_2015_linelist %>%
+#'   sitrep_delimit_spacetime_filter(week_var = epiweek_fct,
+#'                                   week_ini = "2015-W20",
+#'                                   week_fin = "2015-W21",
+#'                                   space_var = loc_hosp_chr,
+#'                                   space_num = 4)
+#'
+#' mers_korea_2015_linelist %>%
+#'   sitrep_delimit_spacetime_count_free(sex,
+#'                                       age_class,
+#'                                       week_var = epiweek_fct,
+#'                                       week_ini = "2015-W22",
+#'                                       week_fin = "2015-W23",
+#'                                       space_var = loc_hosp_chr,
+#'                                       space_num = Inf)
 #'
 #'
 
@@ -63,7 +103,6 @@ sitrep_delimit_metadata <- function(data_raw_name_string,
 
 #' @describeIn sitrep_delimit_metadata create 2 (deprecated) -> now is ..._count
 #' @inheritParams sitrep_delimit_metadata
-#' @param data outcome
 
 sitrep_delimit_spacetime_eval <- function(data,week_ini="2020-W01",week_fin="today",space_var,space_num=4) {
 
@@ -99,7 +138,6 @@ sitrep_delimit_spacetime_eval <- function(data,week_ini="2020-W01",week_fin="tod
 
 #' @describeIn sitrep_delimit_metadata create 3  (deprecated) -> now is ..._filter
 #' @inheritParams sitrep_delimit_metadata
-#' @param data outcome
 
 sitrep_delimit_spacetime_make <- function(data,week_ini="2020-W01",week_fin="today",space_var,space_num=4) {
 
@@ -144,7 +182,6 @@ sitrep_delimit_spacetime_make <- function(data,week_ini="2020-W01",week_fin="tod
 
 #' @describeIn sitrep_delimit_metadata create 2 free (deprecated) -> now is ..._count_free
 #' @inheritParams sitrep_delimit_metadata
-#' @param data outcome
 #' @param ... more spatial covariates
 
 sitrep_delimit_spacetime_eval_free <- function(data,...,week_ini="2020-W01",week_fin="today",space_num=4) {
@@ -183,7 +220,6 @@ sitrep_delimit_spacetime_eval_free <- function(data,...,week_ini="2020-W01",week
 
 #' @describeIn sitrep_delimit_metadata create 2
 #' @inheritParams sitrep_delimit_metadata
-#' @param data outcome
 
 sitrep_delimit_spacetime_count <- function(data,week_ini="2020-W01",week_fin="today",space_var,space_num=4) {
 
@@ -219,9 +255,9 @@ sitrep_delimit_spacetime_count <- function(data,week_ini="2020-W01",week_fin="to
 
 #' @describeIn sitrep_delimit_metadata create 3
 #' @inheritParams sitrep_delimit_metadata
-#' @param data outcome
+#' @param week_var define the week time variable. it must be in aweek::date2week(date, week_start = "Sunday", floor_day = TRUE) format (e.g. "2018-W51")
 
-sitrep_delimit_spacetime_filter <- function(data,week_ini="2020-W01",week_fin="today",space_var,space_num=4) {
+sitrep_delimit_spacetime_filter <- function(data,week_var,week_ini="2020-W01",week_fin="today",space_var,space_num=4) {
 
   sgbdata_raw_cleaned <- data
 
@@ -245,7 +281,7 @@ sitrep_delimit_spacetime_filter <- function(data,week_ini="2020-W01",week_fin="t
   #lima,cajamarca,lambayeque,lalibertad,piura,junin+amazonas (sin huancavelica)
   dptos <- sgbdata_raw_cleaned %>%
     #tiempo para priorizar espacio
-    filter(is_in(epiweek_w,week_range)) %>%
+    filter(is_in({{week_var}},week_range)) %>%
     #filter((is_in(epiweek,time_range) & ano_adm_hos == 2019) | ano_adm_hos == 2020) %>%
     count({{space_var}},sort = T) %>%
     top_n(space_num,n)
@@ -254,7 +290,7 @@ sitrep_delimit_spacetime_filter <- function(data,week_ini="2020-W01",week_fin="t
   #completo
   sgbdata_raw_cleaned_timespace <- sgbdata_raw_cleaned %>%
     #tiempo para priorizar espacio
-    filter(is_in(epiweek_w,week_range)) %>%
+    filter(is_in({{week_var}},week_range)) %>%
     #filter((is_in(epiweek,time_range) & ano_adm_hos == 2019) | ano_adm_hos == 2020) %>%
     #espacio
     filter(is_in({{space_var}},c(dptos %>% pull({{space_var}}))))
@@ -264,10 +300,8 @@ sitrep_delimit_spacetime_filter <- function(data,week_ini="2020-W01",week_fin="t
 
 #' @describeIn sitrep_delimit_metadata create 2 free
 #' @inheritParams sitrep_delimit_metadata
-#' @param data outcome
-#' @param ... more spatial covariates
 
-sitrep_delimit_spacetime_count_free <- function(data,...,week_ini="2020-W01",week_fin="today",space_num=4) {
+sitrep_delimit_spacetime_count_free <- function(data,...,week_var,week_ini="2020-W01",week_fin="today",space_num=4) {
 
   sgbdata_raw_cleaned <- data
   space_var_more <- enquos(...)
@@ -292,7 +326,7 @@ sitrep_delimit_spacetime_count_free <- function(data,...,week_ini="2020-W01",wee
   #lima,cajamarca,lambayeque,lalibertad,piura,junin+amazonas (sin huancavelica)
   dptos <- sgbdata_raw_cleaned %>%
     #tiempo para priorizar espacio
-    filter(is_in(epiweek_w,week_range)) %>%
+    filter(is_in({{week_var}},week_range)) %>%
     #filter((is_in(epiweek,time_range) & ano_adm_hos == 2019) | ano_adm_hos == 2020) %>%
     count(!!!space_var_more) %>%
     arrange(desc(n)) %>%

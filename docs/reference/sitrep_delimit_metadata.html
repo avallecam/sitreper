@@ -124,11 +124,11 @@
 <span class='fu'>sitrep_delimit_spacetime_count</span>(<span class='no'>data</span>, <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2020-W01"</span>,
   <span class='kw'>week_fin</span> <span class='kw'>=</span> <span class='st'>"today"</span>, <span class='no'>space_var</span>, <span class='kw'>space_num</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
-<span class='fu'>sitrep_delimit_spacetime_filter</span>(<span class='no'>data</span>, <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2020-W01"</span>,
+<span class='fu'>sitrep_delimit_spacetime_filter</span>(<span class='no'>data</span>, <span class='no'>week_var</span>, <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2020-W01"</span>,
   <span class='kw'>week_fin</span> <span class='kw'>=</span> <span class='st'>"today"</span>, <span class='no'>space_var</span>, <span class='kw'>space_num</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
-<span class='fu'>sitrep_delimit_spacetime_count_free</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2020-W01"</span>,
-  <span class='kw'>week_fin</span> <span class='kw'>=</span> <span class='st'>"today"</span>, <span class='kw'>space_num</span> <span class='kw'>=</span> <span class='fl'>4</span>)</pre>
+<span class='fu'>sitrep_delimit_spacetime_count_free</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='no'>week_var</span>,
+  <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2020-W01"</span>, <span class='kw'>week_fin</span> <span class='kw'>=</span> <span class='st'>"today"</span>, <span class='kw'>space_num</span> <span class='kw'>=</span> <span class='fl'>4</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,28 +162,8 @@
       <td><p>more spatial covariates</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>outcome</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>outcome</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>outcome</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>outcome</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>outcome</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>more spatial covariates</p></td>
+      <th>week_var</th>
+      <td><p>define the week time variable. it must be in aweek::date2week(date, week_start = "Sunday", floor_day = TRUE) format (e.g. "2018-W51")</p></td>
     </tr>
     </table>
     
@@ -207,8 +187,109 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>outbreaks</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)</div><div class='output co'>#&gt; <span class='message'>-- <span style='font-weight: bold;'>Attaching packages</span><span> -------------------------------------------------------------- tidyverse 1.2.1 --</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>ggplot2</span><span> 3.3.0     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>purrr  </span><span> 0.3.3</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>tibble </span><span> 2.1.3     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>dplyr  </span><span> 0.8.5</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>tidyr  </span><span> 1.0.0     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>stringr</span><span> 1.4.0</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>readr  </span><span> 1.3.1     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>forcats</span><span> 0.5.0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: package 'ggplot2' was built under R version 3.6.3</span></div><div class='output co'>#&gt; <span class='warning'>Warning: package 'dplyr' was built under R version 3.6.3</span></div><div class='output co'>#&gt; <span class='warning'>Warning: package 'forcats' was built under R version 3.6.3</span></div><div class='output co'>#&gt; <span class='message'>-- </span><span style='font-weight: bold;'>Conflicts</span><span> ----------------------------------------------------------------- tidyverse_conflicts() --</span>
+#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>filter()</span><span> masks </span><span style='color: #0000BB;'>stats</span><span>::filter()</span>
+#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>lag()</span><span>    masks </span><span style='color: #0000BB;'>stats</span><span>::lag()</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>aweek</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>sitreper</span>)
+<span class='co'>#data(package="outbreaks")</span>
 
-</div></pre>
+<span class='no'>mers_korea_2015</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>()</div><div class='output co'>#&gt;          Length Class      Mode
+#&gt; linelist 15     data.frame list
+#&gt; contacts  4     data.frame list</div><div class='input'>
+<span class='no'>mers_korea_2015_linelist</span> <span class='kw'>&lt;-</span> <span class='no'>mers_korea_2015</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pluck</span>(<span class='st'>"linelist"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>as_tibble</span>() <span class='kw'>%&gt;%</span>
+
+  <span class='co'># formats for sitreper</span>
+  <span class='fu'>mutate</span>(
+    <span class='kw'>epiweek</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/pkg/aweek/man/date2week.html'>date2week</a></span>(<span class='no'>dt_onset</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='st'>"Sunday"</span>, <span class='kw'>floor_day</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+    <span class='kw'>epiweek_fct</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>epiweek</span>),
+    <span class='kw'>loc_hosp_chr</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>loc_hosp</span>)
+  )
+
+<span class='no'>mers_korea_2015_linelist</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>()</div><div class='output co'>#&gt; [1] 162</div><div class='input'><span class='no'>mers_korea_2015_linelist</span> <span class='kw'>%&gt;%</span> <span class='fu'>count</span>(<span class='no'>epiweek</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
+#&gt;   epiweek      n
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 2015-W19     1
+#&gt; </span><span style='color: #555555;'>2</span><span> 2015-W20    19
+#&gt; </span><span style='color: #555555;'>3</span><span> 2015-W21    17
+#&gt; </span><span style='color: #555555;'>4</span><span> 2015-W22    72
+#&gt; </span><span style='color: #555555;'>5</span><span> 2015-W23    25
+#&gt; </span><span style='color: #555555;'>6</span><span> 2015-W24     1
+#&gt; </span><span style='color: #555555;'>7</span><span> NA          27</div><div class='input'><span class='no'>mers_korea_2015_linelist</span> <span class='kw'>%&gt;%</span> <span class='fu'>count</span>(<span class='no'>loc_hosp</span>,<span class='kw'>sort</span> <span class='kw'>=</span> <span class='no'>T</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 13 x 2</span><span>
+#&gt;    loc_hosp                                                                n
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                                               </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Samsung Medical Center, Seoul                                          80
+#&gt; </span><span style='color: #555555;'> 2</span><span> Pyeongtaek St. Mary, Hospital, Pyeongtaek, Gyeonggi                    37
+#&gt; </span><span style='color: #555555;'> 3</span><span> Dae Cheong Hospital, Daejeon                                           12
+#&gt; </span><span style='color: #555555;'> 4</span><span> Konyang University Hospital, Daejeon                                   11
+#&gt; </span><span style='color: #555555;'> 5</span><span> Samsung Medical Center, Emergency room,Seoul                            5
+#&gt; </span><span style='color: #555555;'> 6</span><span> Hallym University Medical Center                                        4
+#&gt; </span><span style='color: #555555;'> 7</span><span> Pyeongtaek goodmorning hospital                                         4
+#&gt; </span><span style='color: #555555;'> 8</span><span> Hallym University Dongtan Sacred Heart Hospital, Hwaseong, Gyeonggi     3
+#&gt; </span><span style='color: #555555;'> 9</span><span> Seoul Clinic, Asan, Chungcheongnam                                      2
+#&gt; </span><span style='color: #555555;'>10</span><span> 365 Yeollin Clinic, Seoul                                               1
+#&gt; </span><span style='color: #555555;'>11</span><span> Gangdong Kyuang Hee University Hospital                                 1
+#&gt; </span><span style='color: #555555;'>12</span><span> Konkuk University hospital                                              1
+#&gt; </span><span style='color: #555555;'>13</span><span> Pyeongtaek fraternity hospital                                          1</div><div class='input'>
+<span class='no'>mers_korea_2015_linelist</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>sitrep_delimit_spacetime_filter</span>(<span class='kw'>week_var</span> <span class='kw'>=</span> <span class='no'>epiweek_fct</span>,
+                                  <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2015-W20"</span>,
+                                  <span class='kw'>week_fin</span> <span class='kw'>=</span> <span class='st'>"2015-W21"</span>,
+                                  <span class='kw'>space_var</span> <span class='kw'>=</span> <span class='no'>loc_hosp_chr</span>,
+                                  <span class='kw'>space_num</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 18</span><span>
+#&gt;    id      age age_class sex   place_infect reporting_ctry loc_hosp dt_onset  
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>    
+#&gt; </span><span style='color: #555555;'> 1</span><span> SK_1     68 60-69     M     Middle East  South Korea    Pyeongt~ 2015-05-11
+#&gt; </span><span style='color: #555555;'> 2</span><span> SK_2     63 60-69     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-18
+#&gt; </span><span style='color: #555555;'> 3</span><span> SK_3     76 70-79     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-20
+#&gt; </span><span style='color: #555555;'> 4</span><span> SK_7     28 20-29     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-21
+#&gt; </span><span style='color: #555555;'> 5</span><span> SK_10    44 40-49     M     Outside Mid~ China          Pyeongt~ 2015-05-21
+#&gt; </span><span style='color: #555555;'> 6</span><span> SK_11    79 70-79     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-20
+#&gt; </span><span style='color: #555555;'> 7</span><span> SK_12    49 40-49     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-21
+#&gt; </span><span style='color: #555555;'> 8</span><span> SK_13    49 40-49     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-21
+#&gt; </span><span style='color: #555555;'> 9</span><span> SK_14    35 30-39     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-17
+#&gt; </span><span style='color: #555555;'>10</span><span> SK_16    40 40-49     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-20
+#&gt; </span><span style='color: #555555;'>11</span><span> SK_17    45 40-49     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-22
+#&gt; </span><span style='color: #555555;'>12</span><span> SK_18    77 70-79     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-20
+#&gt; </span><span style='color: #555555;'>13</span><span> SK_20    40 40-49     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-23
+#&gt; </span><span style='color: #555555;'>14</span><span> SK_21    59 50-59     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-23
+#&gt; </span><span style='color: #555555;'>15</span><span> SK_26    43 40-49     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-21
+#&gt; </span><span style='color: #555555;'>16</span><span> SK_32    54 50-59     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-23
+#&gt; </span><span style='color: #555555;'>17</span><span> SK_33    47 40-49     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-21
+#&gt; </span><span style='color: #555555;'>18</span><span> SK_34    25 20-29     F     Outside Mid~ South Korea    Pyeongt~ 2015-05-20
+#&gt; </span><span style='color: #555555;'>19</span><span> SK_38    49 40-49     M     Outside Mid~ South Korea    Dae Che~ 2015-05-23
+#&gt; </span><span style='color: #555555;'>20</span><span> SK_40    24 20-29     M     Outside Mid~ South Korea    Pyeongt~ 2015-05-22
+#&gt; </span><span style='color: #555555;'># ... with 10 more variables: dt_report </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, week_report </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; #   dt_start_exp </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, dt_end_exp </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, dt_diag </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, outcome </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; #   dt_death </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, epiweek </span><span style='color: #555555;font-style: italic;'>&lt;aweek&gt;</span><span style='color: #555555;'>, epiweek_fct </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, loc_hosp_chr </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+<span class='no'>mers_korea_2015_linelist</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>sitrep_delimit_spacetime_count_free</span>(<span class='no'>sex</span>,
+                                      <span class='no'>age_class</span>,
+                                      <span class='kw'>week_var</span> <span class='kw'>=</span> <span class='no'>epiweek_fct</span>,
+                                      <span class='kw'>week_ini</span> <span class='kw'>=</span> <span class='st'>"2015-W22"</span>,
+                                      <span class='kw'>week_fin</span> <span class='kw'>=</span> <span class='st'>"2015-W23"</span>,
+                                      <span class='kw'>space_var</span> <span class='kw'>=</span> <span class='no'>loc_hosp_chr</span>,
+                                      <span class='kw'>space_num</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 38 x 4</span><span>
+#&gt;    sex   age_class space_var                                               n
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                               </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> M     50-59     Samsung Medical Center, Seoul                           8
+#&gt; </span><span style='color: #555555;'> 2</span><span> M     60-69     Samsung Medical Center, Seoul                           7
+#&gt; </span><span style='color: #555555;'> 3</span><span> F     50-59     Samsung Medical Center, Seoul                           6
+#&gt; </span><span style='color: #555555;'> 4</span><span> F     40-49     Samsung Medical Center, Seoul                           5
+#&gt; </span><span style='color: #555555;'> 5</span><span> M     30-39     Samsung Medical Center, Seoul                           5
+#&gt; </span><span style='color: #555555;'> 6</span><span> M     40-49     Samsung Medical Center, Seoul                           5
+#&gt; </span><span style='color: #555555;'> 7</span><span> F     60-69     Samsung Medical Center, Seoul                           4
+#&gt; </span><span style='color: #555555;'> 8</span><span> M     70-79     Samsung Medical Center, Seoul                           4
+#&gt; </span><span style='color: #555555;'> 9</span><span> F     30-39     Samsung Medical Center, Seoul                           3
+#&gt; </span><span style='color: #555555;'>10</span><span> F     50-59     Pyeongtaek St. Mary, Hospital, Pyeongtaek, Gyeonggi     3
+#&gt; </span><span style='color: #555555;'># ... with 28 more rows</span><span></div><div class='input'>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -25,11 +25,11 @@ sitrep_delimit_spacetime_eval_free(data, ..., week_ini = "2020-W01",
 sitrep_delimit_spacetime_count(data, week_ini = "2020-W01",
   week_fin = "today", space_var, space_num = 4)
 
-sitrep_delimit_spacetime_filter(data, week_ini = "2020-W01",
+sitrep_delimit_spacetime_filter(data, week_var, week_ini = "2020-W01",
   week_fin = "today", space_var, space_num = 4)
 
-sitrep_delimit_spacetime_count_free(data, ..., week_ini = "2020-W01",
-  week_fin = "today", space_num = 4)
+sitrep_delimit_spacetime_count_free(data, ..., week_var,
+  week_ini = "2020-W01", week_fin = "today", space_num = 4)
 }
 \arguments{
 \item{data_raw_name_string}{filename as string "data-raw/ficha_GB_26Feb20_09_52.xls"}
@@ -46,17 +46,7 @@ sitrep_delimit_spacetime_count_free(data, ..., week_ini = "2020-W01",
 
 \item{...}{more spatial covariates}
 
-\item{data}{outcome}
-
-\item{data}{outcome}
-
-\item{data}{outcome}
-
-\item{data}{outcome}
-
-\item{data}{outcome}
-
-\item{...}{more spatial covariates}
+\item{week_var}{define the week time variable. it must be in aweek::date2week(date, week_start = "Sunday", floor_day = TRUE) format (e.g. "2018-W51")}
 }
 \value{
 retorno
@@ -82,6 +72,45 @@ Create metadata and filter by time and space
 }}
 
 \examples{
+
+library(outbreaks)
+library(tidyverse)
+library(aweek)
+library(sitreper)
+#data(package="outbreaks")
+
+mers_korea_2015 \%>\% summary()
+
+mers_korea_2015_linelist <- mers_korea_2015 \%>\%
+  pluck("linelist") \%>\%
+  as_tibble() \%>\%
+
+  # formats for sitreper
+  mutate(
+    epiweek=date2week(dt_onset, week_start = "Sunday", floor_day = TRUE),
+    epiweek_fct=as.factor(epiweek),
+    loc_hosp_chr=as.character(loc_hosp)
+  )
+
+mers_korea_2015_linelist \%>\% nrow()
+mers_korea_2015_linelist \%>\% count(epiweek)
+mers_korea_2015_linelist \%>\% count(loc_hosp,sort = T)
+
+mers_korea_2015_linelist \%>\%
+  sitrep_delimit_spacetime_filter(week_var = epiweek_fct,
+                                  week_ini = "2015-W20",
+                                  week_fin = "2015-W21",
+                                  space_var = loc_hosp_chr,
+                                  space_num = 4)
+
+mers_korea_2015_linelist \%>\%
+  sitrep_delimit_spacetime_count_free(sex,
+                                      age_class,
+                                      week_var = epiweek_fct,
+                                      week_ini = "2015-W22",
+                                      week_fin = "2015-W23",
+                                      space_var = loc_hosp_chr,
+                                      space_num = Inf)
 
 
 }
