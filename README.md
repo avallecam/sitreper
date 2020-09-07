@@ -70,3 +70,14 @@ data_query %>%
 #> # ... with 2 more variables: components._category <fct>,
 #> #   annotations.OSM.url <fct>
 ```
+
+### Surveillance data management (`cdcper_sitrep`)
+
+  - `clean_eda_sp`: limpia base consolidada de EDA (vigilancia semanal)
+  - `clean_ira_sp`: limpia base consolidada de IRA (vigilancia semanal)
+  - `cdc_casos_tiempo`: resume casos por semana de EDA o IRA
+  - `cdc_casos_nacional`: resume casos de EDA o IRA en el presente año
+
+## To-Do
+
+  - ( ) solve **“R/cdc\_eda\_ira.R”**
