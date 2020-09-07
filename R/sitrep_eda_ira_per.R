@@ -272,10 +272,10 @@ xinternal01 <- function(data,year_range,diagnosis,extra_covariate) {
     # note: original registries are at a ee.ss level
     group_by(across(-matches(diagnosis))) %>%
     # group_by(type, year,ubigeo, ano, semana) %>%
-    summarise_at(.vars = vars(matches(diagnosis)),.funs = sum) %>%
+    summarise_at(.vars = vars(matches(diagnosis)),.funs = sum, na.rm=T) %>%
     ungroup() %>%
     select(-year) %>%
     #make horizontal rowwise sums
-    mutate(row_sum=pmap_int(.l = select(.,matches(diagnosis)),.f = sum))
+    mutate(row_sum=pmap_int(.l = select(.,matches(diagnosis)),.f = sum, na.rm=T))
 }
 
