@@ -10,26 +10,62 @@
 \alias{sitrep_delimit_spacetime_count_free}
 \title{Delimit in space and time}
 \usage{
-sitrep_delimit_metadata(data_raw_name_string, week_ini = "2020-W01",
-  week_fin = "today", space_num = 4)
+sitrep_delimit_metadata(
+  data_raw_name_string,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_num = 4
+)
 
-sitrep_delimit_spacetime_eval(data, week_ini = "2020-W01",
-  week_fin = "today", space_var, space_num = 4)
+sitrep_delimit_spacetime_eval(
+  data,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_var,
+  space_num = 4
+)
 
-sitrep_delimit_spacetime_make(data, week_ini = "2020-W01",
-  week_fin = "today", space_var, space_num = 4)
+sitrep_delimit_spacetime_make(
+  data,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_var,
+  space_num = 4
+)
 
-sitrep_delimit_spacetime_eval_free(data, ..., week_ini = "2020-W01",
-  week_fin = "today", space_num = 4)
+sitrep_delimit_spacetime_eval_free(
+  data,
+  ...,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_num = 4
+)
 
-sitrep_delimit_spacetime_count(data, week_ini = "2020-W01",
-  week_fin = "today", space_var, space_num = 4)
+sitrep_delimit_spacetime_count(
+  data,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_var,
+  space_num = 4
+)
 
-sitrep_delimit_spacetime_filter(data, week_var, week_ini = "2020-W01",
-  week_fin = "today", space_var, space_num = 4)
+sitrep_delimit_spacetime_filter(
+  data,
+  week_var,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_var,
+  space_num = 4
+)
 
-sitrep_delimit_spacetime_count_free(data, ..., week_var,
-  week_ini = "2020-W01", week_fin = "today", space_num = 4)
+sitrep_delimit_spacetime_count_free(
+  data,
+  ...,
+  week_var,
+  week_ini = "2020-W01",
+  week_fin = "today",
+  space_num = 4
+)
 }
 \arguments{
 \item{data_raw_name_string}{filename as string "data-raw/ficha_GB_26Feb20_09_52.xls"}

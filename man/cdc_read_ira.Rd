@@ -6,11 +6,19 @@
 \alias{xinternal01}
 \title{.Leer bases de EDA e IRA}
 \usage{
-cdc_read_ira(rute_ira, year_range = 2013:2019, diagnosis = "ira",
-  extra_covariate = NULL)
+cdc_read_ira(
+  rute_ira,
+  year_range = 2013:2019,
+  diagnosis = "ira",
+  extra_covariate = NULL
+)
 
-cdc_read_eda(rute_eda, year_range = 2013:2019, diagnosis = "daa",
-  extra_covariate = NULL)
+cdc_read_eda(
+  rute_eda,
+  year_range = 2013:2019,
+  diagnosis = "daa",
+  extra_covariate = NULL
+)
 
 xinternal01(data, year_range, diagnosis, extra_covariate)
 }

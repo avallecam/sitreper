@@ -109,7 +109,7 @@ sitrep_opencage_tidy_map <- function(data,place,opencagekey) {
     filter(str_length({{place}})<70) %>%
     #apply purrr map to each row
     mutate(geocode=map(.x = {{place}},
-                       .f = sitrep_opencage_tidy,
+                       .f = possibly(sitrep_opencage_tidy,tibble()),
                        opencagekey = opencagekey)) %>%
     #filter out if no result were optained
     filter(!is.na(geocode)) %>%

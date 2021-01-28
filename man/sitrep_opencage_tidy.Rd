@@ -17,13 +17,11 @@ sitrep_opencage_create(data, address, administrative_level)
 
 \item{opencagekey}{opencage key}
 
-\item{data}{tibble with column of places}
+\item{data}{tibble with column of places and an administrative level}
 
 \item{address}{address to geocode}
 
 \item{administrative_level}{adminsitrative level to add to the string}
-
-\item{data}{tibble with column of places and an administrative level}
 }
 \value{
 columns with geolocation coordinates
